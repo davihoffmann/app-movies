@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:movies_flutter/login/login_api.dart';
+import 'package:movies_flutter/login/login_bloc.dart';
 import 'package:movies_flutter/utils/validators.dart';
+import 'package:movies_flutter/widgets/alert.dart';
 import 'package:movies_flutter/widgets/button.dart';
 import 'package:movies_flutter/widgets/link.dart';
 import 'package:movies_flutter/widgets/text_input.dart';
@@ -15,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   var _formKey = GlobalKey<FormState>();
 
   LoginInput _input = LoginInput();
+  LoginBloc _bloc = LoginBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +73,19 @@ class _LoginPageState extends State<LoginPage> {
                   onSave: (value) => this._input.senha = value,
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 15),
-                child: Button(
-                  "Login",
-                  _onClickLogin,
-                ),
+              StreamBuilder<bool>(
+                stream: _bloc.progress.stream,
+                initialData: false,
+                builder: (context, snapshot) {
+                  return Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Button(
+                      "Login",
+                      _onClickLogin,
+                      showProgress: snapshot.data,
+                    ),
+                  );
+                },
               ),
               Container(
                 margin: EdgeInsets.only(top: 15),
@@ -99,20 +109,23 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
-  _onClickLogin() {
-    if(!_formKey.currentState.validate()) {
+  _onClickLogin() async {
+    if (!_formKey.currentState.validate()) {
       return;
     }
 
     _formKey.currentState.save();
 
+    final response = await _bloc.login(_input);
+
+    if (response.isOk()) {
+      //pushReplacement(context, HomePage());
+    } else {
+      alert(context, "Erro!", response.msg);
+    }
   }
 
-  void _onClickLoginGoogle() {
+  void _onClickLoginGoogle() {}
 
-  }
-
-  void _onClickCadastrar() {
-    
-  }
+  void _onClickCadastrar() {}
 }
