@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   final String text;
-  final Function callback;
+  final VoidCallback callback;
   final bool showProgress;
 
   Button(this.text, this.callback, {this.showProgress = false});

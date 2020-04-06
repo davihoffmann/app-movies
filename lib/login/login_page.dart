@@ -3,6 +3,7 @@ import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:movies_flutter/login/login_api.dart';
 import 'package:movies_flutter/utils/validators.dart';
 import 'package:movies_flutter/widgets/button.dart';
+import 'package:movies_flutter/widgets/link.dart';
 import 'package:movies_flutter/widgets/text_input.dart';
 
 class LoginPage extends StatefulWidget {
@@ -82,13 +83,36 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: _onClickLoginGoogle,
                   borderRadius: 22,
                 ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15),
+                child: Center(
+                  child: Link(
+                    "Cadastre-se",
+                    _onClickCadastrar,
+                    color: Colors.white,
+                  ),
+                ),
               )
             ],
           ),
         ));
   }
 
-  _onClickLogin() {}
+  _onClickLogin() {
+    if(!_formKey.currentState.validate()) {
+      return;
+    }
 
-  void _onClickLoginGoogle() {}
+    _formKey.currentState.save();
+
+  }
+
+  void _onClickLoginGoogle() {
+
+  }
+
+  void _onClickCadastrar() {
+    
+  }
 }
