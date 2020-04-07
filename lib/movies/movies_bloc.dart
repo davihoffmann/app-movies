@@ -1,7 +1,8 @@
+import 'package:movies_flutter/movies/movie.dart';
 import 'package:movies_flutter/movies/movie_api.dart';
 import 'package:movies_flutter/utils/simple_bloc.dart';
 
-class MoviesBloc extends SimpleBloc {
+class MoviesBloc extends SimpleBloc<List<Movie>> {
 
   Future fetch({bool isRefresh = false}) async {
     try {

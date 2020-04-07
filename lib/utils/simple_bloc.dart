@@ -1,23 +1,25 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:movies_flutter/utils/progress_bloc.dart';
-import 'package:rxdart/rxdart.dart';
+import 'dart:async';
 
-class SimpleBloc<T> extends BlocBase {
-  final progress = ProgressBloc();
+class SimpleBloc<T> {
+  final _controller = StreamController<T>();
 
-  final _controller = BehaviorSubject<T>();
-  get stream => _controller.stream;
+  Stream<T> get stream => _controller.stream;
 
-  get add => _controller.sink.add;
-  
-  get addError => _controller.sink.addError;
+  void add(T object) {
+    if(! _controller.isClosed) {
+      _controller.add(object);
+    }
+  }
+
+  void addError(Object error) {
+    if(! _controller.isClosed) {
+      _controller.addError(error);
+    }
+  }
 
   // Fecha a stream para limpar a memória
-  @override
   void dispose() {
-    super.dispose();
     _controller.close();
-    progress.close();
   }
-  
+
 }

@@ -1,7 +1,9 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_flutter/movies/movie.dart';
+import 'package:movies_flutter/movies/movie_page.dart';
 import 'package:movies_flutter/movies/movies_bloc.dart';
+import 'package:movies_flutter/utils/nav.dart';
 import 'package:movies_flutter/widgets/mensagem_erro.dart';
 
 class TabMovies extends StatefulWidget {
@@ -9,8 +11,11 @@ class TabMovies extends StatefulWidget {
   _TabMoviesState createState() => _TabMoviesState();
 }
 
-class _TabMoviesState extends State<TabMovies> {
+class _TabMoviesState extends State<TabMovies> with AutomaticKeepAliveClientMixin<TabMovies> {
   final bloc = BlocProvider.getBloc<MoviesBloc>();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -24,7 +29,7 @@ class _TabMoviesState extends State<TabMovies> {
     return StreamBuilder(
       stream: bloc.stream,
       builder: (context, snapshot) {
-        
+
         // Caso der erro
         if (snapshot.hasError) {
           return Center(
@@ -77,7 +82,9 @@ class _TabMoviesState extends State<TabMovies> {
     );
   }
 
-  _onClickMovie(Movie movie) {}
+  _onClickMovie(Movie movie) {
+    push(context, MoviePage(movie));
+  }
 
   Future<void> _onRefresh() {
     return bloc.fetch();

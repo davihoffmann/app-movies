@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               StreamBuilder<bool>(
-                stream: _bloc.progress.stream,
+                stream: _bloc.stream,
                 initialData: false,
                 builder: (context, snapshot) {
                   return Container(
