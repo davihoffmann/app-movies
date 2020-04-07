@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:movies_flutter/home/home_page.dart';
 import 'package:movies_flutter/login/login_api.dart';
 import 'package:movies_flutter/login/login_bloc.dart';
+import 'package:movies_flutter/utils/nav.dart';
 import 'package:movies_flutter/utils/validators.dart';
 import 'package:movies_flutter/widgets/alert.dart';
 import 'package:movies_flutter/widgets/button.dart';
@@ -122,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
     print("RESPOSTA:>> $response");
 
     if (response.isOk()) {
-      //pushReplacement(context, HomePage());
+      pushReplacement(context, HomePage());
     } else {
       alert(context, "Erro!", response.msg);
     }
