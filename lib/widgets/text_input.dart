@@ -13,7 +13,7 @@ class TextInput extends StatelessWidget {
       {
         this.validator,
         this.onSave,
-        this.password = true
+        this.password = false
       }
   );
 

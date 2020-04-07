@@ -6,7 +6,7 @@ class GenericResponse<T> {
 
   GenericResponse(this.status,  {this.msg, this.result});
 
-  isoK() {
+  isOk() {
     return status;
   }
 

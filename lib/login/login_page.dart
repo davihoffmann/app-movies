@@ -67,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextInput(
                   "Senha",
                   "Digite sua senha",
+                  password: true,
                   validator: (text) {
                     return validateRequired(text, "Informe sua senha");
                   },
@@ -117,6 +118,8 @@ class _LoginPageState extends State<LoginPage> {
     _formKey.currentState.save();
 
     final response = await _bloc.login(_input);
+
+    print("RESPOSTA:>> $response");
 
     if (response.isOk()) {
       //pushReplacement(context, HomePage());
