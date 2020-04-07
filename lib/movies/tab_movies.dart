@@ -26,6 +26,8 @@ class _TabMoviesState extends State<TabMovies> with AutomaticKeepAliveClientMixi
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    
     return StreamBuilder(
       stream: bloc.stream,
       builder: (context, snapshot) {
@@ -71,10 +73,13 @@ class _TabMoviesState extends State<TabMovies> with AutomaticKeepAliveClientMixi
 
   Material _item(List<Movie> movies, int index, BuildContext context) {
     Movie movie = movies[index];
+
+    movie.tag = movie.title;
+
     return Material(
       child: InkWell(
         child: Hero(
-          tag: movie.title,
+          tag: movie.tag,
           child: Image.network(movie.urlFoto, fit: BoxFit.cover),
         ),
         onTap: () => _onClickMovie(movie),

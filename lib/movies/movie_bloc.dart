@@ -1,3 +1,5 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:movies_flutter/favoritos/favoritos_bloc.dart';
 import 'package:movies_flutter/movies/movie.dart';
 import 'package:movies_flutter/movies/movie_db.dart';
 import 'package:movies_flutter/utils/simple_bloc.dart';
@@ -27,7 +29,8 @@ class MovieBloc extends SimpleBloc<bool> {
         return true;
       }
     } finally {
-      
+      final bloc = BlocProvider.getBloc<FavoritosBloc>();
+      bloc.fetch();
     }
 
   }
