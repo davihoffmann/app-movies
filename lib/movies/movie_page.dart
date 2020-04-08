@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_flutter/movies/movie.dart';
 import 'package:movies_flutter/movies/movie_bloc.dart';
@@ -37,24 +38,7 @@ class _MoviePageState extends State<MoviePage> {
           backgroundColor: Colors.deepOrange,
           expandedHeight: 500,
           pinned: false,
-          actions: <Widget>[
-            IconButton(
-              icon: StreamBuilder(
-                stream: _bloc.stream,
-                initialData: false,
-                builder: (context, snapshot) {
-                  return Icon(
-                    Icons.favorite,
-                    size: 35,
-                    color: snapshot.data ? Colors.red : Colors.white,
-                  );
-                },
-              ),
-              onPressed: () {
-                _onClickFavoritar();
-              },
-            )
-          ],
+          actions: <Widget>[iconFavorito()],
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: false,
             title: Text("${movie.title}"),
@@ -172,5 +156,30 @@ class _MoviePageState extends State<MoviePage> {
 
   void _onClickFavoritar() {
     _bloc.favoritar(movie);
+  }
+
+  iconFavorito() {
+    return InkWell(
+      onTap: () {
+        _onClickFavoritar();
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 10),
+        width: 36,
+        height: 36,
+        child: StreamBuilder(
+          stream: _bloc.stream,
+          initialData: false,
+          builder: (context, snapshot) {
+            return FlareActor(
+              "assets/animations/heart.flr",
+              shouldClip: false,
+              color: snapshot.data ? Colors.red : Colors.white,
+              animation: snapshot.data ? "Favorite" : "Unfavorite",
+            );
+          },
+        ),
+      ),
+    );
   }
 }
