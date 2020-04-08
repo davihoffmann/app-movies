@@ -3,9 +3,11 @@ import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:movies_flutter/home/home_page.dart';
 import 'package:movies_flutter/login/login_api.dart';
 import 'package:movies_flutter/login/login_bloc.dart';
+import 'package:movies_flutter/usuario/cadastro_usuario_page.dart';
 import 'package:movies_flutter/utils/nav.dart';
 import 'package:movies_flutter/utils/validators.dart';
 import 'package:movies_flutter/widgets/alert.dart';
+import 'package:movies_flutter/widgets/bg_login.dart';
 import 'package:movies_flutter/widgets/button.dart';
 import 'package:movies_flutter/widgets/link.dart';
 import 'package:movies_flutter/widgets/text_input.dart';
@@ -26,15 +28,8 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
-        children: <Widget>[bgLogin(), _body()],
+        children: <Widget>[BgLogin(), _body()],
       ),
-    );
-  }
-
-  bgLogin() {
-    return Image.asset(
-      "assets/images/bg_login.jpg",
-      fit: BoxFit.cover,
     );
   }
 
@@ -132,5 +127,14 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onClickLoginGoogle() {}
 
-  void _onClickCadastrar() {}
+  void _onClickCadastrar() {
+    push(context, CadastroUsuarioPage());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bloc.dispose();
+  }
+
 }

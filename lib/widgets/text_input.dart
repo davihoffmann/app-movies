@@ -6,6 +6,7 @@ class TextInput extends StatelessWidget {
   final Function validator;
   final Function onSave;
   final bool password;
+  final TextInputType keyboardType;
 
   TextInput(
       this.label,
@@ -13,7 +14,8 @@ class TextInput extends StatelessWidget {
       {
         this.validator,
         this.onSave,
-        this.password = false
+        this.password = false,
+        this.keyboardType = TextInputType.text,
       }
   );
 
@@ -23,7 +25,7 @@ class TextInput extends StatelessWidget {
       validator: this.validator,
       onSaved: this.onSave,
       obscureText: password,
-      keyboardType: TextInputType.text,
+      keyboardType: keyboardType,
       style: TextStyle(
         color: Colors.deepOrange,
         fontSize: 18
